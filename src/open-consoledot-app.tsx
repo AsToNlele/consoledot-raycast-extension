@@ -1,4 +1,4 @@
-import { ActionPanel, List, Action } from "@raycast/api";
+import { ActionPanel, List, Action, popToRoot } from "@raycast/api";
 type ListItem = { title: string; url: string };
 function AppList({ env }: { env: ListItem }) {
   const appList: Array<ListItem> = [
@@ -25,7 +25,11 @@ function AppList({ env }: { env: ListItem }) {
           key={appItem.title}
           actions={
             <ActionPanel>
-              <Action.OpenInBrowser title={`Open App in ${env.title} Environment`} url={`${env.url}${appItem.url}`} />
+              <Action.OpenInBrowser
+                onOpen={() => popToRoot({ clearSearchBar: true })}
+                title={`Open App in ${env.title} Environment`}
+                url={`${env.url}${appItem.url}`}
+              />
             </ActionPanel>
           }
         />
